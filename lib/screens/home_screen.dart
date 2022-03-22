@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data/songs.dart';
+import '../data/songs.dart';
+import 'lyrics_screen.dart';
 
 void main() {}
 
@@ -21,43 +24,28 @@ class SongList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Card(
+    return ListView.builder(
+      itemCount: songsTitles.length,
+      itemBuilder: (context, index) {
+        return Card(
           child: ListTile(
-            title: Text('Maa muu nash ir'),
+            title: Text(songsTitles[index]),
             trailing: Icon(Icons.chevron_right),
+            onTap: () {
+              print(songsTitles[index]);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LyricsScreen(
+                    id: index,
+                    songTitle: songsTitles[index],
+                  ),
+                ),
+              );
+            },
           ),
-        ),
-        Card(
-          child: ListTile(
-            title: Text('Altan nawch'),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            title: Text('chamdaa'),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            title: Text('Urgelj hamtdaa'),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            title: Text('zoriulaad'),
-            trailing: Icon(Icons.chevron_right),
-          ),
-        ),
-        ListTile(
-          title: Text('zurh zusne'),
-          trailing: Icon(Icons.chevron_right),
-        ),
-      ],
+        );
+      },
     );
   }
 }
